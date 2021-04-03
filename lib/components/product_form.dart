@@ -25,13 +25,12 @@ class _ProductFormState extends State<ProductForm> {
     final amount = int.tryParse(_amountController.text) ?? 0.0;
     final purchase = double.tryParse(_purchaseValueController.text) ?? 0.0;
     final sale = double.tryParse(_saleValueController.text) ?? 0.0;
-    final profit = double.tryParse(_profitController.text) ?? 0.0;
+    final profit = amount * sale ?? 0.0;
 
     if (product.isEmpty ||
         amount <= 0 ||
         purchase <= 0 ||
         sale <= 0 ||
-        profit <= 0 ||
         _selectedDate == null) {
       return;
     }
@@ -55,16 +54,19 @@ class _ProductFormState extends State<ProductForm> {
               ),
               AdaptativeTextField(
                 controller: _amountController,
+                keyboardType: TextInputType.numberWithOptions(decimal: false),
                 onSubmitted: (value) => _submitForm(),
                 label: 'Quantidade',
               ),
               AdaptativeTextField(
                 controller: _purchaseValueController,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onSubmitted: (value) => _submitForm(),
                 label: 'Valor de compra',
               ),
               AdaptativeTextField(
                 controller: _saleValueController,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onSubmitted: (value) => _submitForm(),
                 label: 'Valor de venda',
               ),
@@ -80,7 +82,7 @@ class _ProductFormState extends State<ProductForm> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   AdaptativeButton(
-                    label: 'Nova produto',
+                    label: 'Novo produto',
                     onPressed: _submitForm,
                   )
                 ],

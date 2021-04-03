@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory/components/product_form.dart';
+import 'package:inventory/components/product_list.dart';
 import 'package:inventory/components/sale_form.dart';
 import 'package:inventory/model/product.dart';
 import 'package:inventory/model/sale.dart';
@@ -43,9 +44,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final List<Product> _products = [];
+
   _addProduct(String product, int amount, double purchaseValue,
       double saleValue, double profit, DateTime date) {
-    final newSale = Product(
+    final newProduct = Product(
       id: Random().nextDouble().toString(),
       product: product,
       amount: amount,
@@ -54,10 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
       profit: profit,
       date: date,
     );
-    /*
+
     setState(() {
-      _transactions.add(newSale);
-    });*/
+      _products.add(newProduct);
+    });
 
     Navigator.of(context).pop();
   }
@@ -104,6 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     final actions = <Widget>[
       _getIconButton(
           Platform.isIOS ? CupertinoIcons.money_dollar : Icons.attach_money,
@@ -125,14 +129,16 @@ class _MyHomePageState extends State<MyHomePage> {
             actions: actions,
           );
 
+    final availableHeight = mediaQuery.size.height -
+        appBar.preferredSize.height -
+        mediaQuery.padding.top;
+
     final bodyPage = Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Lista do estoque',
-          ),
-        ],
+      child: Container(
+        height: availableHeight * 1,
+        child: ProductList(
+          products: _products,
+        ),
       ),
     );
 
