@@ -15,11 +15,14 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-## List sale
+## List product
 ![](./images_app/list_product.jpeg)
-
-## Form sale
-![](./images_app/form_sale.jpeg)
 
 ## Form product
 ![](./images_app/form_product.jpeg)
+
+## List Sale
+![](./images_app/list_sale.jpeg)
+
+## Form sale
+![](./images_app/form_sale.jpeg)

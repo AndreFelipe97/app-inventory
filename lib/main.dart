@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:inventory/components/product_form.dart';
 import 'package:inventory/components/product_list.dart';
 import 'package:inventory/components/sale_form.dart';
+import 'package:inventory/components/sale_list.dart';
 import 'package:inventory/model/product.dart';
 import 'package:inventory/model/sale.dart';
 
@@ -45,6 +46,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Product> _products = [];
+  final List<Sale> _sales = [];
+  bool _showListSale = false;
 
   _addProduct(String product, int amount, double purchaseValue,
       double saleValue, double profit, DateTime date) {
@@ -65,17 +68,17 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pop();
   }
 
-  _addSale(String product, double price, double amount, DateTime date) {
+  _addSale(String product, double price, int amount, DateTime date) {
     final newSale = Sale(
       product: product,
       price: price,
       amount: amount,
       date: date,
     );
-    /*
+
     setState(() {
-      _transactions.add(newSale);
-    });*/
+      _sales.add(newSale);
+    });
 
     Navigator.of(context).pop();
   }
@@ -136,8 +139,39 @@ class _MyHomePageState extends State<MyHomePage> {
     final bodyPage = Center(
       child: Container(
         height: availableHeight * 1,
-        child: ProductList(
-          products: _products,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              height: availableHeight * .1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Exibir vendas'),
+                  Switch(
+                      value: _showListSale,
+                      onChanged: (value) {
+                        setState(() {
+                          _showListSale = !_showListSale;
+                        });
+                      }),
+                ],
+              ),
+            ),
+            !_showListSale
+                ? Container(
+                    height: availableHeight * .9,
+                    child: ProductList(
+                      products: _products,
+                    ),
+                  )
+                : Container(
+                    height: availableHeight * .9,
+                    child: SaleList(
+                      sales: _sales,
+                    ),
+                  ),
+          ],
         ),
       ),
     );

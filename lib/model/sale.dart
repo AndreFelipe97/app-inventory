@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 class Sale {
   final String product;
   final double price;
-  final double amount;
+  final int amount;
   final DateTime date;
 
   Sale({

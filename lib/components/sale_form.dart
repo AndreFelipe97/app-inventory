@@ -4,7 +4,7 @@ import 'package:inventory/adaptatives/adaptative_date_picker.dart';
 import 'package:inventory/adaptatives/adaptative_text_field.dart';
 
 class SaleForm extends StatefulWidget {
-  final void Function(String, double, double, DateTime) onSubmit;
+  final void Function(String, double, int, DateTime) onSubmit;
 
   SaleForm(this.onSubmit);
 
@@ -20,14 +20,14 @@ class _SaleFormState extends State<SaleForm> {
 
   _submitForm() {
     final product = _productController.text;
-    final amount = double.tryParse(_amountController.text) ?? 0.0;
+    final amount = int.tryParse(_amountController.text) ?? 0.0;
     final price = double.tryParse(_priceController.text) ?? 0.0;
 
     if (product.isEmpty || amount <= 0 || price <= 0 || _selectedDate == null) {
       return;
     }
 
-    widget.onSubmit(product, amount, price, _selectedDate);
+    widget.onSubmit(product, price, amount, _selectedDate);
   }
 
   @override
@@ -46,11 +46,13 @@ class _SaleFormState extends State<SaleForm> {
               ),
               AdaptativeTextField(
                 controller: _priceController,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onSubmitted: (value) => _submitForm(),
                 label: 'Preço',
               ),
               AdaptativeTextField(
                 controller: _amountController,
+                keyboardType: TextInputType.numberWithOptions(decimal: false),
                 onSubmitted: (value) => _submitForm(),
                 label: 'Quantidade',
               ),
