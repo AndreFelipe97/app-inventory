@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:inventory/components/sale_form.dart';
+import 'package:inventory/model/sale.dart';
 
 void main() => runApp(InvetortyApp());
 
@@ -38,6 +40,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  _addSale(String product, double price, double amount, DateTime date) {
+    final newSale = Sale(
+      product: product,
+      price: price,
+      amount: amount,
+      date: date,
+    );
+    /*
+    setState(() {
+      _transactions.add(newSale);
+    });*/
+
+    Navigator.of(context).pop();
+  }
+
   _openProductFormModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -50,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
     showModalBottomSheet(
         context: context,
         builder: (ctx) {
-          return SingleChildScrollView(child: Text('Formulário de venda'));
+          return SingleChildScrollView(child: SaleForm(_addSale));
         });
   }
 

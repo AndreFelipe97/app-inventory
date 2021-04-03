@@ -43,7 +43,7 @@ class AdaptativeDatePicker extends StatelessWidget {
                 Text(
                   selectedDate == null
                       ? 'Nenhuma data selecionada'
-                      : 'Data ${DateFormat('dd/MM/y')}',
+                      : 'Data ${DateFormat('dd/MM/y').format(selectedDate)}',
                   style: TextStyle(fontSize: 15),
                 ),
                 TextButton(
