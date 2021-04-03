@@ -1,5 +1,8 @@
 import 'dart:math';
 import 'dart:io';
+
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory/components/product_form.dart';
@@ -15,7 +18,14 @@ class InvetortyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('pt', ''),
+      ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'OpenSans',
